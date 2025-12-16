@@ -1,0 +1,88 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+All colors MUST be HSL.
+*/
+
+@layer base {
+  :root {
+    /* Traditional SCADA Light Theme - Based on Reference Image */
+    --background: 210 25% 65%;
+    --foreground: 215 20% 15%;
+
+    --card: 210 30% 85%;
+    --card-foreground: 215 20% 15%;
+
+    --popover: 210 25% 75%;
+    --popover-foreground: 215 20% 15%;
+
+    /* Blue-Grey Primary */
+    --primary: 210 40% 45%;
+    --primary-foreground: 0 0% 100%;
+
+    /* Light Panel Secondary */
+    --secondary: 210 20% 80%;
+    --secondary-foreground: 215 20% 20%;
+
+    --muted: 210 15% 70%;
+    --muted-foreground: 210 10% 35%;
+
+    /* Green for Open/Running */
+    --success: 145 80% 42%;
+    --success-foreground: 0 0% 100%;
+
+    /* Red for Closed/Stopped */
+    --destructive: 0 75% 50%;
+    --destructive-foreground: 0 0% 100%;
+
+    /* Yellow for Acknowledgement */
+    --warning: 48 95% 50%;
+    --warning-foreground: 215 20% 15%;
+
+    /* Cyan Blue for water/active */
+    --accent: 190 90% 55%;
+    --accent-foreground: 215 20% 15%;
+
+    /* Blue for STOP button */
+    --info: 210 90% 55%;
+    --info-foreground: 0 0% 100%;
+
+    --border: 210 20% 50%;
+    --input: 0 0% 100%;
+    --ring: 210 80% 50%;
+
+    --radius: 0.25rem;
+
+    /* SCADA Specific */
+    --pump-green: 145 80% 42%;
+    --water-blue: 190 90% 55%;
+    --pipe-grey: 210 10% 85%;
+    --metal-grey: 210 5% 50%;
+    
+    /* Sidebar */
+    --sidebar-background: 210 25% 60%;
+    --sidebar-foreground: 215 20% 15%;
+    --sidebar-primary: 210 40% 45%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 210 25% 70%;
+    --sidebar-accent-foreground: 215 20% 15%;
+    --sidebar-border: 210 20% 50%;
+    --sidebar-ring: 190 90% 55%;
+
+    /* 3D Effects */
+    --shadow-3d: 2px 2px 4px rgba(0,0,0,0.3);
+    --shadow-inset: inset 2px 2px 4px rgba(0,0,0,0.2);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+}
