@@ -58,11 +58,17 @@ export const PumpControlView = ({
                   </span>
                 </div>
                 
+                {!valveStatus[i-1] && !pumpStatus[i-1] && (
+                  <div className="text-xs text-yellow-600 font-medium">
+                    Open MBFV-{i.toString().padStart(2, '0')} to enable pump start
+                  </div>
+                )}
+                
                 <div className="flex gap-2 mt-4">
                   <Button
                     className="flex-1 bg-green-600 hover:bg-green-700 text-white"
                     onClick={() => onStartPump(i-1)}
-                    disabled={pumpStatus[i-1]}
+                    disabled={pumpStatus[i-1] || !valveStatus[i-1]}
                   >
                     START
                   </Button>
@@ -108,6 +114,12 @@ export const PumpControlView = ({
                   </span>
                 </div>
                 
+                {pumpStatus[i-1] && !valveStatus[i-1] && (
+                  <div className="text-xs text-yellow-600 font-medium">
+                    Stop VT-{i.toString().padStart(2, '0')} to enable valve close
+                  </div>
+                )}
+                
                 <div className="flex gap-2 mt-4">
                   <Button
                     className="flex-1 bg-green-600 hover:bg-green-700 text-white"
@@ -119,7 +131,7 @@ export const PumpControlView = ({
                   <Button
                     className="flex-1 bg-red-600 hover:bg-red-700 text-white"
                     onClick={() => onCloseValve(i-1)}
-                    disabled={!valveStatus[i-1]}
+                    disabled={!valveStatus[i-1] || pumpStatus[i-1]}
                   >
                     CLOSE
                   </Button>

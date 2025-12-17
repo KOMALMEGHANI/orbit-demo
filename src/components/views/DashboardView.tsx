@@ -1,5 +1,7 @@
 import { IntakeSump } from "@/components/IntakeSump";
 import { BranchTrain } from "@/components/BranchTrain";
+import { RealisticEFM } from "@/components/RealisticEFM";
+import { PressureGauge } from "@/components/PressureGauge";
 interface DashboardViewProps {
   sumpLevel: number;
   pumpStatuses: boolean[];
@@ -17,7 +19,7 @@ export const DashboardView = ({
   onPumpClick
 }: DashboardViewProps) => {
   const anyPumpRunning = pumpStatuses.some((p, i) => p && valveStatuses[i]);
-  const pt05Value = anyPumpRunning ? (4.0 + Math.random() * 0.4).toFixed(1) : "0.0";
+  const pt05Value = anyPumpRunning ? 4.0 + Math.random() * 0.4 : 0.0;
   return <div className="h-full w-full bg-gray-100 relative overflow-hidden">
       {/* Legend at Top Left */}
       <div className="absolute top-4 left-4 bg-white/90 p-3 rounded border-2 border-gray-300 shadow-lg">
@@ -30,8 +32,8 @@ export const DashboardView = ({
         </div>
       </div>
 
-      {/* Main Header - Slightly adjusted position */}
-      <div className="absolute top-20 left-[20%] right-16 flex items-center">
+      {/* Main Header - Restored to original positioning with improved connection handling */}
+      <div className="absolute top-[59px] left-[20%] right-16 flex items-center">
         {/* Main Header Title */}
         <div className="absolute -top-10 left-1/2 -translate-x-1/2">
           <h1 className="text-xl font-bold text-gray-900">Main Header</h1>
@@ -73,28 +75,32 @@ export const DashboardView = ({
           }
         `}</style>
 
-        {/* PT-05 on header */}
-        <div className="absolute -top-16 right-40 flex flex-col items-center gap-1">
-          <div className="w-8 h-12 bg-gray-700 border-2 border-gray-900 flex items-center justify-center">
-            <div className="text-white text-[10px] font-bold">PT-05</div>
-          </div>
-          <div className="text-xs font-semibold text-gray-900">{pt05Value} Bar</div>
-          <div className="w-0.5 h-6 bg-gray-600" />
+        {/* PT-05 on header - Moved 21px upward */}
+        <div className="absolute -top-[53px] right-40 flex flex-col items-center gap-1">
+          <PressureGauge
+            label="PT-05"
+            value={pt05Value}
+            min={0}
+            max={6}
+            unit="Bar"
+            size={100}
+            active={anyPumpRunning}
+          />
+          <div className="w-0.5 h-4 bg-gray-600" />
         </div>
 
-        {/* EFM (Electro Magnetic Flow) */}
-        <div className="absolute -right-4 -top-8 flex flex-col items-center gap-2">
-          <div className="w-20 h-16 bg-gray-800 border-4 border-gray-900 flex flex-col items-center justify-center">
-            <div className="text-white text-sm font-bold">EFM</div>
-            <div className="text-green-400 text-xs font-semibold">{Math.round(flowRate)} L/S</div>
-          </div>
-          <div className="text-[10px] font-bold text-gray-900 text-center max-w-[80px]">
-            Electro Magnetic Flow (EFM)
-          </div>
+        {/* EFM (Electro Magnetic Flow) - Moved 21px upward */}
+        <div className="absolute -right-11 -top-[48px]">
+          <RealisticEFM
+            flowRate={flowRate}
+            flowing={anyPumpRunning}
+            label="EFM"
+            width={180}
+          />
         </div>
       </div>
 
-      {/* 4 Branch Trains - Adjusted positioning for larger sump */}
+      {/* 4 Branch Trains - Improved connection to main header */}
       <div className="absolute bottom-36 left-1/2 -translate-x-1/2 grid grid-cols-4 gap-16" style={{
       width: '900px'
     }}>
@@ -104,7 +110,7 @@ export const DashboardView = ({
       {/* LT-01 Level Transmitter (Right Side) */}
       <div className="absolute bottom-36 right-12 flex flex-col items-center gap-2">
         <div className="bg-white border-2 border-gray-900 px-4 py-2 text-center">
-          <div className="text-xs font-bold text-gray-900 mb-1">LT 01</div>
+          <div className="text-sm font-bold text-gray-900 mb-1">LT 01</div>
           <div className="text-2xl font-bold text-gray-900">{Math.round(sumpLevel)}%</div>
         </div>
         <div className="w-16 h-32 border-2 border-gray-900 relative overflow-hidden" style={{

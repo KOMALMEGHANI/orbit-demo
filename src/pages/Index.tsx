@@ -21,7 +21,6 @@ const Index = () => {
     alarms,
     lastSync,
     isConnected,
-    isStale,
     cloudLogging,
     pumpCurrents,
     pumpPowers,
@@ -82,7 +81,6 @@ const Index = () => {
     <div className="flex flex-col h-screen bg-background">
       <ScadaHeader 
         isConnected={isConnected}
-        isStale={isStale}
         lastSync={lastSync}
         cloudLogging={cloudLogging}
       />
